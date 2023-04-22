@@ -6,7 +6,7 @@ const LoginPage = () => {
       <form>
         <input type="text" name="username" placeholder="Enter username" />
         <input type="password" name="password" placeholder="Enter password" />
-        <input type="button" Submit />
+        <input type="button" value="Login" />
       </form>
     </div>
   );

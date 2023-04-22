@@ -1,9 +1,9 @@
 import "./App.css";
-import { BrowserRouter as Router, Routes } from "react-router-dom";
+import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
 import HomePage from "./pages/HomePage";
 import LoginPage from "./pages/LoginPage";
 import Header from "./components/Header";
-import { PrivateRoute } from "./utils/PrivateRoute";
+import PrivateRoute from "./utils/PrivateRoute";
 
 function App() {
   return (
@@ -11,8 +11,15 @@ function App() {
       <Router>
         <Header />
         <Routes>
-          <PrivateRoute path="/" element={<HomePage />} />
-          <PrivateRoute path="/login" element={<LoginPage />} />
+          <Route path="/login" element={<LoginPage />} />
+          <Route
+            path="/"
+            element={
+              <PrivateRoute>
+                <HomePage />
+              </PrivateRoute>
+            }
+          />
         </Routes>
       </Router>
     </>
