@@ -6,8 +6,8 @@ export default AuthContext;
 
 export const AuthProvider = ({ children }) => {
   // const [user, setUser] = useState(null);
-  // const [authToken, setAuthToken] = useState(null);
-  const loginUser = async (e) => {
+  const [authTokens, setAuthTokens] = useState(null);
+  const loginUser = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const response = fetch("http://localhost:8000/api/token/", {
       method: "POST",
@@ -18,9 +18,16 @@ export const AuthProvider = ({ children }) => {
         username: e.target.username.value,
         password: e.target.password.value,
       }),
-    }).then((data) => data.json());
-    const data = await response;
-    console.log(data);
+    });
+    const data = await response.then((data) => data.json());
+    const status = await response.then((res) => res.status.valueOf());
+    // console.log("Data ", data);
+    // console.log("Response", status);
+    if (status == 200) {
+      setAuthTokens(data);
+    } else {
+      alert("Something went wrong!!");
+    }
   };
   const contextData = {
     loginUser: loginUser,
