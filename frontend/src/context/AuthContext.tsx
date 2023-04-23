@@ -9,7 +9,7 @@ export const AuthProvider = ({ children }) => {
   // const [authToken, setAuthToken] = useState(null);
   const loginUser = async (e) => {
     e.preventDefault();
-    const response = fetch("http://localhost:8000/api/token", {
+    const response = fetch("http://localhost:8000/api/token/", {
       method: "POST",
       headers: {
         "Content-Type": "Application/json",
@@ -18,8 +18,8 @@ export const AuthProvider = ({ children }) => {
         username: e.target.username.value,
         password: e.target.password.value,
       }),
-    });
-    const data = await response.json();
+    }).then((data) => data.json());
+    const data = await response;
     console.log(data);
   };
   const contextData = {
