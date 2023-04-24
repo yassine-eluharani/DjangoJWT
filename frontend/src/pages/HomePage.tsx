@@ -2,7 +2,7 @@ import { useContext, useEffect, useState } from "react";
 import AuthContext from "../context/AuthContext";
 
 const HomePage = () => {
-  const { authTokens, logout } = useContext(AuthContext);
+  const { authTokens, logout, user } = useContext(AuthContext);
   const [notes, setNotes] = useState([]);
   useEffect(() => {
     getNotes();
@@ -25,7 +25,7 @@ const HomePage = () => {
   };
   return (
     <div>
-      <p>Notes: </p>
+      <p>{user.username}'s notes: </p>
       <ul>
         {notes.map((note) => (
           <li key={note.id}>{note.body}</li>

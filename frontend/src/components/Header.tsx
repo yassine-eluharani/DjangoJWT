@@ -13,8 +13,6 @@ const Header = () => {
       ) : (
         <Link to="/login">Login</Link>
       )}
-
-      {user && <p>Hello {user.username}</p>}
     </div>
   );
 };
