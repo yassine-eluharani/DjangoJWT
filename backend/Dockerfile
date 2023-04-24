@@ -9,6 +9,10 @@ COPY requirements.txt /app/requirements.txt
 # runs the pip install command for all packages listed in the requirements.txt file
 RUN python3 -m pip install -r requirements.txt
 
+ENTRYPOINT [ "python" ]
+
+CMD [ "manage.py", "migrate" ]
+
 COPY . /app
 
 EXPOSE 8000
