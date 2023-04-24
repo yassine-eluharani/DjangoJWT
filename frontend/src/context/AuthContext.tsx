@@ -21,8 +21,6 @@ export const AuthProvider = ({ children }) => {
     });
     const data = await response.then((data) => data.json());
     const status = await response.then((res) => res.status.valueOf());
-    // console.log("Data ", data);
-    // console.log("Response", status);
     if (status == 200) {
       setAuthTokens(data);
     } else {
@@ -32,6 +30,8 @@ export const AuthProvider = ({ children }) => {
   const contextData = {
     loginUser: loginUser,
   };
+  // console.log(authTokens);
+
   return (
     <AuthContext.Provider value={contextData}>{children}</AuthContext.Provider>
   );
