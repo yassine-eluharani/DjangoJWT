@@ -19,7 +19,7 @@ export const AuthProvider = ({ children }) => {
       ? JSON.parse(localStorage.getItem("authTokens"))
       : null
   );
-  const [loading, setloading] = useState(true);
+  const [loading, setLoading] = useState(true);
 
   const loginUser = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -59,7 +59,7 @@ export const AuthProvider = ({ children }) => {
         "Content-Type": "Application/json",
       },
       body: JSON.stringify({
-        refresh: authTokens.refresh,
+        refresh: authTokens?.refresh,
       }),
     });
     const data = await response.then((data) => data.json());
@@ -71,15 +71,22 @@ export const AuthProvider = ({ children }) => {
     } else {
       logout();
     }
+    if (loading) {
+      setLoading(false);
+    }
   };
 
   const contextData = {
     logout: logout,
     user: user,
     loginUser: loginUser,
+    authTokens: authTokens,
   };
 
   useEffect(() => {
+    if (loading) {
+      updateToken();
+    }
     const interval = setInterval(() => {
       if (authTokens) {
         updateToken();
@@ -88,6 +95,8 @@ export const AuthProvider = ({ children }) => {
     return () => clearInterval(interval);
   }, [loading, authTokens]);
   return (
-    <AuthContext.Provider value={contextData}>{children}</AuthContext.Provider>
+    <AuthContext.Provider value={contextData}>
+      {loading ? null : children}
+    </AuthContext.Provider>
   );
 };
