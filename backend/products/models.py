@@ -1,21 +1,33 @@
 from django.db import models
+from django.core.validators import MinValueValidator
+from django.db.models.aggregates import IntegerField
+from django.db.models.expressions import Decimal
 
 # Create your models here.
 
 class Product(models.Model):
-    ProductName = models.CharField(max_length=30)
-    # Product name: a CharField to store the name of the product.
-    # Description: a TextField to store the description of the product.
-    # Price: a DecimalField to store the price of the product.
-    # Category: a ForeignKey to a Category model that groups similar products together.
-    # Brand: a ForeignKey to a Brand model that represents the brand of the product.
-    # SKU: a CharField to store a unique identifier for the product.
-    # Quantity: an IntegerField to store the available quantity of the product.
-    # Weight: a FloatField to store the weight of the product, useful for calculating shipping costs.
-    # Images: an ImageField or FileField to store product images or other media files.
-    # Ratings: a FloatField or IntegerField to store the product rating or number of ratings.
+    CATEGORY_CHOICES = [
+        ('electronics', 'Electronics'),
+        ('fashion', 'Fashion'),
+        ('home_and_garden', 'Home and Garden'),
+        ('beauty_and_personal_care', 'Beauty and Personal Care'),
+        ('sports_and_outdoors', 'Sports and Outdoors'),
+        ('health_and_wellness', 'Health and Wellness'),
+        ('toys_and_games', 'Toys and Games'),
+        ('pet_supplies', 'Pet Supplies'),
+        ('books_and_media', 'Books and Media'),
+        ('food_and_beverage', 'Food and Beverage'),
+    ]
+    name = models.CharField(max_length=255, null= True)
+    description = models.TextField(null= True)
+    price = models.DecimalField(max_digits=10, decimal_places=2, null=True)
+    category = models.CharField(choices=CATEGORY_CHOICES, max_length=25, null= True)
+    sku = models.CharField(max_length=50, null= True)
+    quantity = models.PositiveIntegerField(null= True)
+    image = models.ImageField(upload_to='products/', null=True, blank=True)
+    rating = models.DecimalField(max_digits=3, decimal_places=2, null=True, blank=True)
+    featured = models.BooleanField(default=False)    
+
     # Reviews: a TextField or ForeignKey to a Review model that stores user reviews of the product.
     # Variants: a ManyToManyField to a Variant model that stores different variants of the product (such as size or color).
-    # Tags: a ManyToManyField to a Tag model that allows you to tag products with keywords or attributes for filtering and searching.
-    # Date added: a DateTimeField to store the date and time the product was added to the store.
     # Featured: a BooleanField to indicate whether the product is a featured item or not.

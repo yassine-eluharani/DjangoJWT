@@ -1,0 +1,92 @@
+[
+  {
+    "model": "products.product",
+    "pk": 1,
+    "fields": {
+      "name": "Tesla Model S",
+      "description": "The Tesla Model S is an all-electric luxury sedan with cutting-edge technology and performance.",
+      "price": 79999.99,
+      "category": "automotive",
+      "sku": "TESMS01",
+      "quantity": 5,
+      "image": "https://perfectdata.ma/wp-content/uploads/2022/07/LD0005928897_1.jpg",
+      "rating": 4.9,
+      "featured": true
+    }
+  },
+  {
+    "model": "products.product",
+    "pk": 2,
+    "fields": {
+      "name": "Ford Mustang",
+      "description": "The Ford Mustang is an iconic sports car with a classic design and powerful engine.",
+      "price": 59999.99,
+      "category": "automotive",
+      "sku": "FOMUS01",
+      "quantity": 10,
+      "image": "https://perfectdata.ma/wp-content/uploads/2022/07/LD0005928897_1.jpg",
+      "rating": 4.5,
+      "featured": false
+    }
+  },
+  {
+    "model": "products.product",
+    "pk": 3,
+    "fields": {
+      "name": "Apple MacBook Pro",
+      "description": "The MacBook Pro is a powerful laptop with a sleek design and long battery life.",
+      "price": 2199.99,
+      "category": "computers",
+      "sku": "APPMBP01",
+      "quantity": 3,
+      "image": "https://perfectdata.ma/wp-content/uploads/2022/07/LD0005928897_1.jpg",
+      "rating": 4.8,
+      "featured": true
+    }
+  },
+  {
+    "model": "products.product",
+    "pk": 4,
+    "fields": {
+      "name": "Dell XPS 13",
+      "description": "The Dell XPS 13 is a lightweight laptop with a high-resolution display and long battery life.",
+      "price": 1599.99,
+      "category": "computers",
+      "sku": "DELXPS01",
+      "quantity": 8,
+      "image": "https://perfectdata.ma/wp-content/uploads/2022/07/LD0005928897_1.jpg",
+      "rating": 4.5,
+      "featured": false
+    }
+  },
+  {
+    "model": "products.product",
+    "pk": 5,
+    "fields": {
+      "name": "Nike Air Max 270",
+      "description": "The Nike Air Max 270 is a comfortable and stylish sneaker with a unique design.",
+      "price": 149.99,
+      "category": "footwear",
+      "sku": "NIA27001",
+      "quantity": 12,
+      "image": "https://perfectdata.ma/wp-content/uploads/2022/07/LD0005928897_1.jpg",
+      "rating": 4.7,
+      "featured": true
+    }
+  },
+  {
+    "model": "products.product",
+    "pk": 6,
+    "fields": {
+      "name": "Adidas Ultraboost 21",
+      "description": "The Adidas Ultraboost 21 is a running shoe with a comfortable and supportive design.",
+      "price": 179.99,
+      "category": "footwear",
+      "sku": "ADAUB21",
+      "quantity": 5,
+      "image": "https://perfectdata.ma/wp-content/uploads/2022/07/LD0005928897_1.jpg",
+      "rating": 4.5,
+      "featured": true
+    }
+  }
+]
