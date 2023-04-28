@@ -1,7 +1,4 @@
 from django.db import models
-from django.core.validators import MinValueValidator
-from django.db.models.aggregates import IntegerField
-from django.db.models.expressions import Decimal
 
 # Create your models here.
 
