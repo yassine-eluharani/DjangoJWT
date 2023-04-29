@@ -28,6 +28,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     'base.apps.BaseConfig',
+    'products.apps.ProductsConfig',
     'rest_framework',
     'rest_framework_simplejwt.token_blacklist',
     'corsheaders'
@@ -161,6 +162,12 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
 STATIC_URL = 'static/'
+MEDIA_URL = 'images/'
+
+STATICFILES_DIRS = [
+    BASE_DIR / 'static',
+    # BASE_DIR / 'frontend/build/static' #Unnecessary if you just need Backend Setup for Image Upload. It's just to Load React Project Static Files
+]
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
