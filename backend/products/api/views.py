@@ -7,10 +7,9 @@ from products.api.serializers import ProductSerializer
 @api_view(['GET'])
 def getRoutes(request):
     routes = [
-        # This endpoint is where we submit the username and password and we get back an access token
         '/product_api/products',
-        # This will give us a new token based on a refresh token that you sent to the backend 
-        '/product_api/create'
+        '/product_api/create',
+        '/product_api/product/<int>'
     ]
     return Response(routes)
 
@@ -19,8 +18,14 @@ def getRoutes(request):
 def getProducts(request):
     products = Product.objects.all()
     serialzer = ProductSerializer(products, many= True)
-    print('DEBUG print getProducts is called serialzer ----',serialzer)
     return Response(serialzer.data)
+
+
+@api_view(['GET'])
+def getProduct(request, product_id):
+    product_details = Product.objects.get(id = product_id)
+    serializer = ProductSerializer(product_details)
+    return Response(serializer.data)
 
 @api_view(['POST'])
 def addProduct(request):
