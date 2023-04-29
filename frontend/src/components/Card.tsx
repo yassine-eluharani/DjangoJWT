@@ -2,7 +2,7 @@ import React from "react";
 
 const Card = ({ products }) => {
   return (
-    <div>
+    <div className="bg-red-500">
       {products.map((product) => (
         <div key={product.id}>
           <img src={product.image} width="50" height="50" />
