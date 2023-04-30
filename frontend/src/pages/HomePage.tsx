@@ -6,7 +6,7 @@ const HomePage = () => {
   const { user } = useContext(AuthContext);
   return (
     <div>
-      <p>{user.username}'s notes: </p>
+      <p>Logged in As: {user.username}</p>
       <ProductList />
     </div>
   );
