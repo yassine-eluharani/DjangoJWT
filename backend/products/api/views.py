@@ -9,7 +9,10 @@ def getRoutes(request):
     routes = [
         '/product_api/products',
         '/product_api/create',
-        '/product_api/product/<int>'
+        '/product_api/product/<int>',
+        '/product_api/addCart',
+        '/product_api/updateCart'
+        
     ]
     return Response(routes)
 
