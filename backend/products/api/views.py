@@ -53,11 +53,21 @@ def addProduct(request):
 
 @api_view(['POST'])
 def addCart(request):
-    product_id = request.data.get('product_id')
+    user = request.user.id
+    product_id = request.data.get("id")
+    quantity = request.data.get("quantity")
     product = Product.objects.get(id = product_id)
-    cart, created = Cart.objects.get_or_create(user=request.user)
+    cart, created = Cart.objects.get_or_create(user=user)
     cart.products.add(product)
-    cart.total += product.price
+    cart.total +=quantity* product.price
     cart.save()
-    serializer = CartSerializer(cart)
+    return Response({'message': f'{product.name} added to cart.'})
+
+
+@api_view(['GET'])
+def getCart(request):
+    cart = Cart.objects.get(user =request.user.id)
+    serializer = ProductSerializer(cart)
     return Response(serializer.data)
+
+
