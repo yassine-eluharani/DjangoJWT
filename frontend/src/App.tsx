@@ -6,6 +6,7 @@ import LoginPage from "./pages/LoginPage";
 import Header from "./components/Header";
 import PrivateRoute from "./utils/PrivateRoute";
 import { AuthProvider } from "./context/AuthContext";
+import ProductDetails from "./pages/ProductDetails";
 
 function App() {
   return (
@@ -23,6 +24,14 @@ function App() {
                 </PrivateRoute>
               }
             />
+            <Route
+              path="/products/:id"
+              element={
+                <PrivateRoute>
+                  <ProductDetails />
+                </PrivateRoute>
+              }
+            ></Route>
           </Routes>
         </AuthProvider>
       </Router>

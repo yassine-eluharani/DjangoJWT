@@ -1,7 +1,8 @@
+from django.db.models.sql.query import product
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
-from products.models import Product
-from products.api.serializers import ProductSerializer
+from products.models import Product, Cart
+from products.api.serializers import CartSerializer, ProductSerializer
 
 #This decerator takes a list of http methods we ca send 
 @api_view(['GET'])
@@ -48,3 +49,15 @@ def addProduct(request):
         serialzer.save()
         return Response(serialzer.data)
     return Response(serialzer.errors)
+
+
+@api_view(['POST'])
+def addCart(request):
+    product_id = request.data.get('product_id')
+    product = Product.objects.get(id = product_id)
+    cart, created = Cart.objects.get_or_create(user=request.user)
+    cart.products.add(product)
+    cart.total += product.price
+    cart.save()
+    serializer = CartSerializer(cart)
+    return Response(serializer.data)
