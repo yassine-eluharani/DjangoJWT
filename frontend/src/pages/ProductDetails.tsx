@@ -9,7 +9,6 @@ const ProductDetails = () => {
   const { id } = useParams();
   useEffect(() => {
     getProduct();
-    console.log(authTokens);
   }, []);
 
   const addCart = async () => {

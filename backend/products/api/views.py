@@ -12,7 +12,7 @@ def getRoutes(request):
         '/product_api/create',
         '/product_api/product/<int>',
         '/product_api/addCart',
-        '/product_api/updateCart'
+        '/product_api/getCart'
         
     ]
     return Response(routes)
@@ -66,8 +66,12 @@ def addCart(request):
 
 @api_view(['GET'])
 def getCart(request):
-    cart = Cart.objects.get(user =request.user.id)
-    serializer = ProductSerializer(cart)
-    return Response(serializer.data)
+    user = request.user
+    cart = Cart.objects.filter(user=user).first()
+    if not cart:
+        return Response({'products': []})
+    cart_products = cart.products.all()
+    serializer = ProductSerializer(cart_products, many=True)
+    return Response({'products': serializer.data})
 
 
