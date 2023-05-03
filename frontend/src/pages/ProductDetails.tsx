@@ -23,10 +23,10 @@ const ProductDetails = () => {
         quantity: quantity,
       }),
     });
-    const data = await response.then((data) => data.json());
+    // const data = await response.then((data) => data.json());
     const status = await response.then((res) => res.status.valueOf());
     if (status == 200) {
-      setProduct(data);
+      console.log(`Added ${quantity} to cart!`);
     } else {
       alert("Something went wrong!!");
     }
@@ -85,7 +85,6 @@ const ProductDetails = () => {
           <button
             className="block w-full px-4 py-2 font-medium tracking-wide text-center capitalize transition-colors duration-300 transform bg-[#FFC933] rounded-md hover:bg-[#FFC933DD] focus:outline-none focus:ring focus:ring-teal-300 focus:ring-opacity-80"
             onClick={() => {
-              console.log(`Added ${quantity} to cart!`);
               addCart();
             }}
           >
