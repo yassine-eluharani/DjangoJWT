@@ -2,7 +2,8 @@ import { useContext, useEffect, useState } from "react";
 import AuthContext from "../context/AuthContext";
 
 const Cart = () => {
-  const { authTokens, logout } = useContext(AuthContext);
+  const { authTokens, logout, setCartItems, cartItems } =
+    useContext(AuthContext);
   const [cart, setCart] = useState([]);
   useEffect(() => {
     async function getCart() {
@@ -20,11 +21,10 @@ const Cart = () => {
         if (response.ok) {
           const data = await response.json();
           setCart(data.products);
+          setCartItems(data.products.length);
           console.log(cart);
         } else if (response.status === 401) {
           logout();
-        } else {
-          // handle other errors
         }
       } catch (error) {
         console.error(error);
@@ -35,7 +35,7 @@ const Cart = () => {
 
   return (
     <div className="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
-      <h1 className="text-3xl font-bold mb-4">Cart</h1>
+      <h1 className="text-3xl font-bold mb-4">Cart total items: {cartItems}</h1>
       <table className="w-full text-left">
         <thead>
           <tr className="bg-gray-50">

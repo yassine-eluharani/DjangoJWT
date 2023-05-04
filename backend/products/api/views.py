@@ -59,7 +59,6 @@ def addCart(request):
     product = Product.objects.get(id = product_id)
     cart, created = Cart.objects.get_or_create(user=user)
     cart.products.add(product)
-    cart.total +=quantity* product.price
     cart.save()
     return Response({'message': f'{product.name} added to cart.'})
 

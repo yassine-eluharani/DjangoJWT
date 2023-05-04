@@ -8,7 +8,7 @@ export default AuthContext;
 
 export const AuthProvider = ({ children }) => {
   const navigate = useNavigate();
-
+  const [cartItems, setCartItems] = useState();
   const [user, setUser] = useState(() =>
     localStorage.getItem("authTokens")
       ? jwt_decode(localStorage.getItem("authTokens"))
@@ -47,6 +47,7 @@ export const AuthProvider = ({ children }) => {
   const logout = () => {
     setUser(null);
     setAuthTokens(null);
+    setCartItems(null);
     localStorage.removeItem("authTokens");
     navigate("/login");
   };
@@ -81,6 +82,8 @@ export const AuthProvider = ({ children }) => {
     user: user,
     loginUser: loginUser,
     authTokens: authTokens,
+    cartItems: cartItems,
+    setCartItems: setCartItems,
   };
 
   useEffect(() => {

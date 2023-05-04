@@ -23,11 +23,8 @@ const ProductDetails = () => {
         quantity: quantity,
       }),
     });
-    // const data = await response.then((data) => data.json());
     const status = await response.then((res) => res.status.valueOf());
-    if (status == 200) {
-      console.log(`Added ${quantity} to cart!`);
-    } else {
+    if (status !== 200) {
       alert("Something went wrong!!");
     }
   };
