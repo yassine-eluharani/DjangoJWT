@@ -22,7 +22,6 @@ const Cart = () => {
           const data = await response.json();
           setCart(data.products);
           setCartItems(data.products.length);
-          console.log(cart);
         } else if (response.status === 401) {
           logout();
         }
@@ -31,7 +30,7 @@ const Cart = () => {
       }
     }
     getCart();
-  }, [authTokens]);
+  }, [authTokens, cartItems]);
 
   const deleteProduct = async (product_id) => {
     const response = fetch(`http://localhost:8000/product_api/delete`, {
@@ -44,10 +43,9 @@ const Cart = () => {
         id: product_id,
       }),
     });
-    const data = await response.then((data) => data.json());
     const status = await response.then((res) => res.status.valueOf());
     if (status == 200) {
-      setProduct(data);
+      setCartItems(cartItems.length);
     } else {
       alert("Something went wrong!!");
     }
@@ -55,7 +53,13 @@ const Cart = () => {
 
   return (
     <div className="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
-      <h1 className="text-3xl font-bold mb-4">Cart total items: {cartItems}</h1>
+      {cartItems > 0 ? (
+        <h1 className="text-3xl font-bold mb-4">
+          Cart total items: {cartItems}
+        </h1>
+      ) : (
+        " "
+      )}
       <table className="w-full text-left">
         <thead>
           <tr className="bg-gray-50">
