@@ -1,42 +1,25 @@
 import { Link } from "react-router-dom";
-import { useContext, useEffect, useState } from "react";
+import { useContext } from "react";
 import AuthContext from "../context/AuthContext";
 
 const Header = () => {
-  const { user, logout, authTokens } = useContext(AuthContext);
-  const [cart, setCart] = useState([]);
-  useEffect(() => {
-    async function getCart() {
-      try {
-        const response = await fetch(
-          "http://localhost:8000/product_api/getCart/",
-          {
-            method: "GET",
-            headers: {
-              "Content-Type": "application/json",
-              Authorization: "Bearer " + String(authTokens.access),
-            },
-          }
-        );
-        if (response.ok) {
-          const data = await response.json();
-          setCart(data.products);
-          console.log(cart);
-        } else if (response.status === 401) {
-          logout();
-        } else {
-          // handle other errors
-        }
-      } catch (error) {
-        console.error(error);
-      }
-    }
-    getCart();
-  }, [authTokens]);
-
+  const { user, logout } = useContext(AuthContext);
   return (
     <div className="flex">
-      <Link to="/">Home</Link>
+      <Link
+        className="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 hover:border-transparent rounded"
+        to="/"
+      >
+        Home
+      </Link>
+      <span> |</span>
+      <Link
+        className="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 hover:border-transparent rounded"
+        to="/cart"
+      >
+        Cart
+      </Link>
+
       <span> |</span>
       {user ? (
         <button
@@ -48,9 +31,6 @@ const Header = () => {
       ) : (
         <Link to="/login">Login</Link>
       )}
-
-      <span> |</span>
-      {cart && <h3>Cart Items: {cart.length}</h3>}
     </div>
   );
 };
