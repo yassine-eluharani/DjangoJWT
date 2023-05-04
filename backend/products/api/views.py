@@ -12,7 +12,8 @@ def getRoutes(request):
         '/product_api/create',
         '/product_api/product/<int>',
         '/product_api/addCart',
-        '/product_api/getCart'
+        '/product_api/getCart',
+        '/product_api/delete',
         
     ]
     return Response(routes)
@@ -72,5 +73,17 @@ def getCart(request):
     cart_products = cart.products.all()
     serializer = ProductSerializer(cart_products, many=True)
     return Response({'products': serializer.data})
+
+@api_view(['DELETE'])
+def deleteCartItem(request):
+    user = request.user
+    cart = Cart.objects.get(user=user)
+    product_id = request.data.get("id")
+    product = Product.objects.get(id=product_id)
+    cart.products.remove(product)
+    cart.total -= product.price
+    cart.save()
+    return Response({'message': f'{product.name} removed from cart.'})
+
 
 

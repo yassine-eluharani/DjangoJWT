@@ -33,6 +33,26 @@ const Cart = () => {
     getCart();
   }, [authTokens]);
 
+  const deleteProduct = async (product_id) => {
+    const response = fetch(`http://localhost:8000/product_api/delete`, {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "Application/json",
+        Authorization: "Bearer " + String(authTokens.access),
+      },
+      body: JSON.stringify({
+        id: product_id,
+      }),
+    });
+    const data = await response.then((data) => data.json());
+    const status = await response.then((res) => res.status.valueOf());
+    if (status == 200) {
+      setProduct(data);
+    } else {
+      alert("Something went wrong!!");
+    }
+  };
+
   return (
     <div className="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
       <h1 className="text-3xl font-bold mb-4">Cart total items: {cartItems}</h1>
@@ -50,6 +70,9 @@ const Cart = () => {
             </th>
             <th className="px-6 py-3 text-xs font-medium text-gray-500 uppercase tracking-wider">
               Quantity
+            </th>
+            <th className="px-6 py-3 text-xs font-medium text-gray-500 uppercase tracking-wider">
+              Delete
             </th>
           </tr>
         </thead>
@@ -70,6 +93,14 @@ const Cart = () => {
               <td className="px-6 py-4 whitespace-nowrap">{item.name}</td>
               <td className="px-6 py-4 whitespace-nowrap">{item.price}</td>
               <td className="px-6 py-4 whitespace-nowrap">{item.quantity}</td>
+              <td>
+                <button
+                  className="bg-transparent hover:bg-red-500 text-red-700 font-semibold hover:text-white py-2 px-4 border border-red-500 hover:border-transparent rounded"
+                  onClick={() => deleteProduct(item.id)}
+                >
+                  Delete
+                </button>
+              </td>
             </tr>
           ))}
         </tbody>
