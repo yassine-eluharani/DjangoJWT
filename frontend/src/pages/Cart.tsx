@@ -2,9 +2,7 @@ import { useContext, useEffect, useState } from "react";
 import AuthContext from "../context/AuthContext";
 
 const Cart = ({ cart, setCart }) => {
-  const { authTokens, logout } = useContext(AuthContext);
-  console.log("Cart State before deleting item", cart);
-
+  const { authTokens } = useContext(AuthContext);
   const deleteProduct = async (product_id) => {
     const response = fetch(`http://localhost:8000/product_api/delete`, {
       method: "DELETE",
@@ -20,14 +18,11 @@ const Cart = ({ cart, setCart }) => {
     if (status == 200) {
       const newCart = cart.filter((product) => product.id !== product_id);
       setCart(newCart);
-      console.log("Cart State after item deleted", cart);
-
       alert("Item deleted!!");
     } else {
       alert("Something went wrong!!");
     }
   };
-  console.log(cart);
 
   return (
     <div className="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">

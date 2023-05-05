@@ -25,7 +25,7 @@ const ProductDetails = ({ cart, setCart }) => {
     const data = await response.then((data) => data.json());
     const status = await response.then((res) => res.status.valueOf());
     if (status == 200) {
-      setCart([...cart, data]); // use spread operator to create a new array with the existing cart items and the new item
+      setCart([...cart, data]);
       alert("Product added!!");
     } else {
       alert("Something went wrong!!");

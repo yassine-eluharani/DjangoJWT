@@ -4,7 +4,6 @@ import AuthContext from "../context/AuthContext";
 
 const ProductList = () => {
   const { authTokens, logout } = useContext(AuthContext);
-
   const [products, setProducts] = useState([]);
   useEffect(() => {
     getProduct();
