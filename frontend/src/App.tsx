@@ -8,20 +8,22 @@ import PrivateRoute from "./utils/PrivateRoute";
 import { AuthProvider } from "./context/AuthContext";
 import ProductDetails from "./pages/ProductDetails";
 import Cart from "./pages/Cart";
+import { useState } from "react";
 
 function App() {
+  const [cart, setCart] = useState([]);
   return (
     <>
       <Router>
         <AuthProvider>
-          <Header />
+          <Header cart={cart} />
           <Routes>
             <Route path="/login" element={<LoginPage />} />
             <Route
               path="/"
               element={
                 <PrivateRoute>
-                  <HomePage />
+                  <HomePage setCart={setCart} />
                 </PrivateRoute>
               }
             />
@@ -29,7 +31,7 @@ function App() {
               path="/cart"
               element={
                 <PrivateRoute>
-                  <Cart />
+                  <Cart cart={cart} setCart={setCart} />
                 </PrivateRoute>
               }
             />
@@ -38,7 +40,7 @@ function App() {
               path="/products/:id"
               element={
                 <PrivateRoute>
-                  <ProductDetails />
+                  <ProductDetails cart={cart} setCart={setCart} />
                 </PrivateRoute>
               }
             ></Route>

@@ -4,11 +4,8 @@ const Card = ({ products }) => {
   return (
     <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
       {products.map((product) => (
-        <Link to={`/products/${product.id}`}>
-          <div
-            key={product.id}
-            className="bg-white rounded-3xl shadow-xl overflow-hidden"
-          >
+        <Link key={product.id} to={`/products/${product.id}`}>
+          <div className="bg-white rounded-3xl shadow-xl overflow-hidden">
             <img src={product.image} className="w-full h-1/2" />
             <div className="p-4">
               <p className="font-bold text-gray-700 text-lg leading-6 mb-2">

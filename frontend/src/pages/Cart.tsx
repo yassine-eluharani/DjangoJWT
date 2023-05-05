@@ -1,36 +1,9 @@
 import { useContext, useEffect, useState } from "react";
 import AuthContext from "../context/AuthContext";
 
-const Cart = () => {
-  const { authTokens, logout, setCartItems, cartItems } =
-    useContext(AuthContext);
-  const [cart, setCart] = useState([]);
-  useEffect(() => {
-    async function getCart() {
-      try {
-        const response = await fetch(
-          "http://localhost:8000/product_api/getCart/",
-          {
-            method: "GET",
-            headers: {
-              "Content-Type": "application/json",
-              Authorization: "Bearer " + String(authTokens.access),
-            },
-          }
-        );
-        if (response.ok) {
-          const data = await response.json();
-          setCart(data.products);
-          setCartItems(data.products.length);
-        } else if (response.status === 401) {
-          logout();
-        }
-      } catch (error) {
-        console.error(error);
-      }
-    }
-    getCart();
-  }, [authTokens, cartItems]);
+const Cart = ({ cart, setCart }) => {
+  const { authTokens, logout } = useContext(AuthContext);
+  console.log("Cart State before deleting item", cart);
 
   const deleteProduct = async (product_id) => {
     const response = fetch(`http://localhost:8000/product_api/delete`, {
@@ -45,17 +18,22 @@ const Cart = () => {
     });
     const status = await response.then((res) => res.status.valueOf());
     if (status == 200) {
-      setCartItems(cartItems.length);
+      const newCart = cart.filter((product) => product.id !== product_id);
+      setCart(newCart);
+      console.log("Cart State after item deleted", cart);
+
+      alert("Item deleted!!");
     } else {
       alert("Something went wrong!!");
     }
   };
+  console.log(cart);
 
   return (
     <div className="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
-      {cartItems > 0 ? (
+      {cart.length > 0 ? (
         <h1 className="text-3xl font-bold mb-4">
-          Cart total items: {cartItems}
+          Cart total items: {cart.length}
         </h1>
       ) : (
         " "

@@ -61,7 +61,9 @@ def addCart(request):
     cart, created = Cart.objects.get_or_create(user=user)
     cart.products.add(product)
     cart.save()
-    return Response({'message': f'{product.name} added to cart.'})
+    serialzer = ProductSerializer(product)
+    return Response(serialzer.data)
+    # return Response({'message': f'{product.name} added to cart.'})
 
 
 @api_view(['GET'])

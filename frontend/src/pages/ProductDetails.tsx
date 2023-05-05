@@ -2,7 +2,7 @@ import { useContext, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import AuthContext from "../context/AuthContext";
 
-const ProductDetails = () => {
+const ProductDetails = ({ cart, setCart }) => {
   const { authTokens } = useContext(AuthContext);
   const [product, setProduct] = useState({});
   const [quantity, setQuantity] = useState(1);
@@ -10,7 +10,6 @@ const ProductDetails = () => {
   useEffect(() => {
     getProduct();
   }, []);
-
   const addCart = async () => {
     const response = fetch("http://localhost:8000/product_api/addCart/", {
       method: "POST",
@@ -23,8 +22,12 @@ const ProductDetails = () => {
         quantity: quantity,
       }),
     });
+    const data = await response.then((data) => data.json());
     const status = await response.then((res) => res.status.valueOf());
-    if (status !== 200) {
+    if (status == 200) {
+      setCart([...cart, data]); // use spread operator to create a new array with the existing cart items and the new item
+      alert("Product added!!");
+    } else {
       alert("Something went wrong!!");
     }
   };
